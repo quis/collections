@@ -23,6 +23,7 @@ Dir[Rails.root.join('test/support/*.rb')].each { |f| require f }
 require 'gds_api/test_helpers/content_store'
 require 'slimmer/test_helpers/govuk_components'
 require 'gds_api/test_helpers/rummager'
+require 'govuk-content-schema-test-helpers'
 
 # Most tests use ActiveSupport TestCase behaviour, so we configure this here.
 # For integration tests that use capybara, we configure GovukAbTesting

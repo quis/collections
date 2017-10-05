@@ -1,7 +1,6 @@
 require 'gds_api/publishing_api/special_route_publisher'
 
 class SpecialRoutePublisher
-
   attr_reader :publisher
 
   def initialize(publisher_options)
@@ -12,7 +11,7 @@ class SpecialRoutePublisher
     publisher.publish(
       route.merge(
         format: "special_route",
-        publishing_app: "collections",
+        publishing_app: "collections-publisher",
         rendering_app: "collections",
         type: route_type,
         public_updated_at: Time.zone.now.iso8601,
