@@ -290,7 +290,7 @@ private
         dimension29: @child_taxons[index]['title']
       }
 
-      link[:'data-track-action'].must_equal "#{index + 1}"
+      link[:'data-track-action'].must_equal (index + 1).to_s
       link[:'data-track-label'].must_equal @child_taxons[index]['base_path']
       link[:'data-track-options'].must_equal expected_tracking_options.to_json
       link[:'data-module'].must_equal 'track-click'
