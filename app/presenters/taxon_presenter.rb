@@ -62,7 +62,14 @@ class TaxonPresenter
       )
     end
 
-    accordion_items
+    accordion_items.map do |taxon|
+      {
+        title: taxon.title,
+        description: taxon.description,
+        base_path: taxon.base_path,
+        taxon: taxon,
+      }
+    end
   end
 
   def options_for_leaf_content(index:)

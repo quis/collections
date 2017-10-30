@@ -18,31 +18,20 @@
   <div class="grid-row child-topic-contents">
     <div class="column-two-thirds">
       <div class="topic-content">
-        <%
-          accordion_contents = []
-        %>
-        <% presented_taxon.accordion_content.each_with_index do |taxon, index| %>
-          <% contents = capture do %>
-            <% if taxon.can_subscribe? %>
-              <%= render partial: 'email_alerts', locals: { presented_taxon: taxon } %>
-            <% end %>
 
-            <%= render 'components/taxon-list', {
-                heading_level: 'h3',
-                items: taxon_list_params(taxon, data_options_type: :options_for_accordion_content, section_index: index)
-             } %>
+        <%= render 'components/accordion', sections: presented_taxon.accordion_content do |section, index| %>
+
+          <% if section[:taxon].can_subscribe? %>
+            <%= render partial: 'email_alerts', locals: { presented_taxon: section[:taxon] } %>
           <% end %>
-          <%
-            accordion_contents << {
-              title: taxon.title,
-              description: taxon.description,
-              id: taxon.base_path,
-              panel: contents
-            }
-          %>
+
+          <%= render 'components/taxon-list', {
+            heading_level: 'h3',
+            items: taxon_list_params(section[:taxon], data_options_type: :options_for_accordion_content, section_index: index)
+          } %>
+
         <% end %>
 
-        <%= render 'components/accordion', sections: accordion_contents %>
       </div>
     </div>
   </div>
