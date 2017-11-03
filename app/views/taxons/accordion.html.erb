@@ -19,7 +19,7 @@
     <div class="column-two-thirds">
       <div class="topic-content">
 
-        <%= render 'components/accordion', sections: presented_taxon.accordion_content do |section, index| %>
+        <%= render 'components/accordion', sections: presented_taxon.accordion_content do |(section, index)| %>
 
           <% if section[:taxon].can_subscribe? %>
             <%= render partial: 'email_alerts', locals: { presented_taxon: section[:taxon] } %>

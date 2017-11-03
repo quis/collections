@@ -21,6 +21,12 @@ shared_accessibility_criteria:
   - link
 examples:
   default:
+    block: |
+      <div class="description">
+        <%= section[:panel] %>
+      </div>
+    block_arguments:
+      - section
     data:
       sections: [
         {
@@ -38,72 +44,95 @@ examples:
       ]
   complex:
     description: Complex markup can be passed for the accordion panels, but the styling for that content should not come from the component itself.
+    block: |
+      <div class="govuk-govspeak">
+        <% if section[:show_subscriptions] %>
+          <div class="subscriptions">
+            <a href="/email-signup/?topic=<%= section[:base_path] %>" class="email-alerts">
+              Get email alerts for this topic
+              <span class="visuallyhidden"><%= section[:title] %></span>
+            </a>
+          </div>
+        <% end %>
+
+        <ol class="subsection-list">
+          <% section[:subsections].each do |subsection| %>
+            <li>
+              <a href="<%= subsection[:base_path] %>">
+                <%= subsection[:title] %>
+              </a>
+              <p>
+                <%= subsection[:description] %>
+              </p>
+            </li>
+          <% end %>
+        </ol>
+      </div>
+    block_arguments:
+      - section
     data:
       sections: [
         {
           title: 'General information and guidance',
-          panel: '<div class="govuk-govspeak">
-            <ol class="subsection-list">
-              <li>
-                <a href="/government/publications/assessment-component-files-2013">Assessment component files: 2013</a>
-                <p>Assessment framework specification files for software suppliers developing management information systems (MIS).</p>
-              </li>
-              <li>
-                <a href="/government/publications/assessment-component-files-2014">Assessment component files: 2014</a>
-                <p>Assessment framework specification files for software suppliers developing management information systems (MIS).</p>
-              </li>
-              <li>
-                <a href="/government/publications/collect-guides-for-schools-and-local-authorities">COLLECT guides for schools and local authorities</a>
-                <p>Guides for schools and local authorities submitting data using COLLECT.</p>
-              </li>
-            </ol>
-          </div>'
+          subsections: [
+            {
+              title: 'Assessment component files: 2013',
+              base_path: '/government/publications/assessment-component-files-2013',
+              description: 'Assessment framework specification files for software suppliers developing management information systems (MIS).'
+            },
+            {
+              title: 'Assessment component files: 2014',
+              base_path: '/government/publications/assessment-component-files-2014',
+              description: 'Assessment framework specification files for software suppliers developing management information systems (MIS).'
+            },
+            {
+              title: 'COLLECT guides for schools and local authorities',
+              base_path: '/government/publications/collect-guides-for-schools-and-local-authorities',
+              description: 'Guides for schools and local authorities submitting data using COLLECT.'
+            }
+          ]
         },
         {
           title: 'Alternative provision censuses',
-          panel: '<div class="govuk-govspeak">
-            <div class="subscriptions">
-              <a href="/email-signup/?topic=/education/alternative-provision-censuses" class="email-alerts">
-                Get email alerts for this topic
-                <span class="visuallyhidden">Alternative provision censuses</span>
-              </a>
-            </div>
-            <ol>
-              <li>
-                <a href="/government/publications/alternative-provision-census-2018-guide">Alternative provision census 2018: guide</a>
-                <p>Guide for local authorities and providers of alternative provision to help them complete and submit alternative provision census 2018 data.</p>
-              </li>
-              <li>
-                <a href="/government/publications/alternative-provision-census-2018-technical-specification">Alternative provision census 2018: technical specification</a>
-                <p>Business and technical specification for local authorities and software suppliers to prepare for the alternative provision census 2018.</p>
-              </li>
-            </ol>
-          </div>'
+          base_path: '/education/alternative-provision-censuses',
+          show_subscriptions: true,
+          subsections: [
+            {
+              title: 'Alternative provision census 2018: guide',
+              base_path: '/government/publications/alternative-provision-census-2018-guide',
+              description: 'Guide for local authorities and providers of alternative provision to help them complete and submit alternative provision census 2018 data.'
+            },
+            {
+              title: 'Alternative provision census 2018: technical specification',
+              base_path: '/government/publications/alternative-provision-census-2018-technical-specification',
+              description: 'Business and technical specification for local authorities and software suppliers to prepare for the alternative provision census 2018.'
+            }
+          ]
         },
         {
           title: 'General hospital school censuses',
-          panel: '<div class="govuk-govspeak">
-            <div class="subscriptions">
-              <a href="/email-signup/?topic=/education/general-hospital-school-censuses" class="email-alerts">
-                Get email alerts for this topic
-                <span class="visuallyhidden">General hospital school censuses</span>
-              </a>
-            </div>
-            <ol>
-              <li>
-                <a href="/government/publications/general-hospital-school-census-2016-collect-guide">General hospital school census 2016: COLLECT guide</a>
-                <p>How to use COLLECT, DfEs data collection and management system, to complete and submit the 2016 general hospital school census.</p>
-              </li>
-              <li>
-                <a href="/government/publications/general-hospital-school-census-guide">General hospital school census guide</a>
-                <p>Guide to help general hospital schools complete their annual census.</p>
-              </li>
-            </ol>
-          </div>'
+          base_path: '/education/general-hospital-school-censuses',
+          show_subscriptions: true,
+          subsections: [
+            {
+              title: 'General hospital school census 2016: COLLECT guide',
+              base_path: '/government/publications/general-hospital-school-census-2016-collect-guide',
+              description: 'How to use COLLECT, DfEs data collection and management system, to complete and submit the 2016 general hospital school census.',
+            },
+            {
+              title: 'General hospital school census guide',
+              base_path: '/government/publications/general-hospital-school-census-guide',
+              description: 'Guide to help general hospital schools complete their annual census.'
+            }
+          ]
         },
       ]
   with_descriptions:
     description: Descriptive text can be included in the accordion header.
+    block: |
+      <%= section[:panel] %>
+    block_arguments:
+      - section
     data:
       sections: [
         {
@@ -118,6 +147,10 @@ examples:
       ]
   with_custom_section_ids:
     description: IDs for accordion sections are automatically generated based on the section title, but can also be passed manually. Passed IDs are converted to lowercase and have spaces replaced with hyphens.
+    block: |
+      <%= section[:panel] %>
+    block_arguments:
+      - section
     data:
       sections: [
         {
@@ -130,4 +163,20 @@ examples:
           id: 'something2',
           panel: 'Second accordion panel'
         }
+      ]
+  with_section_indices:
+    description: The block is also passed the index of the section as the second argument
+    block: |
+      <%= index %>
+    block_arguments:
+      - section
+      - index
+    data:
+      sections: [
+        {
+          title: 'First section (index 0)',
+        },
+        {
+          title: 'Second section (index 1)',
+        },
       ]

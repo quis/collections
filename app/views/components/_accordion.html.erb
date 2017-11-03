@@ -20,7 +20,7 @@
         </div>
 
         <div class="app-c-accordion__panel js-panel" id="section-panel-<%= id %>-<%= index + 1 %>">
-          <%= yield(section, index) %>
+          <%= yield([section, index]) %>
         </div>
       </div>
     <% end %>
