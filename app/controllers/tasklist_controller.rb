@@ -4,7 +4,7 @@ class TasklistController < ApplicationController
 
     render :show, locals: {
       content_item: content_item,
-      tasklist: TasklistContent.learn_to_drive_config
+      tasklist: GovukNavigationHelpers::TasklistContent.new(file_name: 'learn-to-drive-a-car')
     }
   end
 
@@ -13,7 +13,7 @@ class TasklistController < ApplicationController
 
     render :show, locals: {
       content_item: content_item,
-      tasklist: TasklistContent.end_a_civil_partnership_config
+      tasklist: GovukNavigationHelpers::TasklistContent.new(file_name: 'end-a-civil-partnership')
     }
   end
 
@@ -22,7 +22,7 @@ class TasklistController < ApplicationController
 
     render :show, locals: {
       content_item: content_item,
-      tasklist: TasklistContent.get_a_divorce_config
+      tasklist: GovukNavigationHelpers::TasklistContent.new(file_name: 'get-a-divorce')
     }
   end
 end
