@@ -3,7 +3,7 @@ require 'integration_test_helper'
 class GetADivorceTasklistPageTest < ActionDispatch::IntegrationTest
   before do
     path = "/get-a-divorce"
-    content_store_has_item(path, schema: 'generic')
+    content_store_has_item(path, document_type: 'step_by_step_nav')
 
     visit path
   end

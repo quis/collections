@@ -6,10 +6,6 @@ Rails.application.routes.draw do
   mount JasmineRails::Engine => '/specs' if defined?(JasmineRails)
   mount GovukPublishingComponents::Engine, at: "/component-guide" if defined?(GovukPublishingComponents)
 
-  get "/learn-to-drive-a-car", to: 'tasklist#show'
-  get "/get-a-divorce", to: 'tasklist#show'
-  get "/end-a-civil-partnership", to: 'tasklist#show'
-
   get "/browse.json" => redirect("/api/content/browse")
 
   resources :browse, only: %i(index show), param: :top_level_slug do
@@ -37,6 +33,10 @@ Rails.application.routes.draw do
   get "/government/organisations/:organisation_id/services-information",
     to: "services_and_information#index",
     as: :services_and_information
+
+  constraints DocumentTypeConstraint.new('step_by_step_nav' ) do
+    get ":slug", to: 'tasklist#show'
+  end
 
   get '*taxon_base_path', to: 'taxons#show'
 end
