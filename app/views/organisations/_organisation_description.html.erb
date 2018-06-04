@@ -3,7 +3,7 @@
       text: "What we do",
       heading_level: 2
   } %>
-  <p>
+  <div>
     <%= organisation.body %>
     <% if child_organisation_count(organisation).nonzero? %>
       <p class="child-organisation-count">
@@ -12,7 +12,7 @@
       </p>
     <% end %>
     <%= link_to "Read more about what we do", "#{organisation.base_path}/about" %>
-  </p>
+  </div>
 </div>
 
 <div class="organisation-social-media">
