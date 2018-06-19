@@ -1,4 +1,5 @@
 class FeedsController < ApplicationController
+  include OrganisationHelper
   enable_request_formats organisation: :atom
 
   def organisation
@@ -9,6 +10,7 @@ class FeedsController < ApplicationController
 
     response = OrganisationFeedContent.fetch(organisation: organisation_name)
     @items = response["results"].map { |result| OrganisationFeedEntryPresenter.new(result) }
+    @organisation_status = organisation_closed_govuk_status_description(@organisation)
   end
 
 private
