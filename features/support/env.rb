@@ -17,5 +17,3 @@ require_relative 'selenium'
 require 'slimmer/test'
 
 ActionController::Base.allow_rescue = false
-
-Capybara.javascript_driver = :headless_chrome

@@ -15,15 +15,12 @@ gem 'slimmer', '~> 13.0.0'
 gem 'uglifier', '~> 4.1.14'
 
 group :test do
-  gem 'capybara'
-  gem 'chromedriver-helper'
+  gem 'govuk_test', path: '../govuk_test'
   gem 'cucumber-rails', require: false
   gem 'govuk_schemas', '~> 3.1.0'
   gem 'govuk-content-schema-test-helpers'
   gem 'minitest-spec-rails'
   gem 'mocha'
-  gem 'puma'
-  gem 'selenium-webdriver'
   gem 'simplecov'
   gem 'simplecov-rcov'
   gem 'webmock', require: false
